@@ -7,6 +7,7 @@
 
 <script>
 import {RulerBuilder} from './index'
+import {mapState} from 'vuex'
 export default {
   data() {
     return {
@@ -14,16 +15,23 @@ export default {
       vRulerWp: null
     }
   },
-  mounted() {
-    this.initRuler()
+  computed: {
+    ...mapState({
+      canvasScale: 'canvasScale'
+    })
+  },
+  watch: {
+    canvasScale() {
+      this.initRuler()
+    }
   },
   methods: {
     initRuler() {
       const rulerH = document.querySelector('.ruler-container-h')
       const rulerV = document.querySelector('.ruler-container-v')
 
-      this.hRulerWp = new RulerBuilder(rulerH, {direction: 'TB'})
-      this.vRulerWp = new RulerBuilder(rulerV, {direction: 'LR'})
+      this.hRulerWp = new RulerBuilder(rulerH, {direction: 'TB', scale: this.canvasScale})
+      this.vRulerWp = new RulerBuilder(rulerV, {direction: 'LR', scale: this.canvasScale})
     }
   },
 }

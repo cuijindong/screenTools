@@ -2,7 +2,9 @@
   <div class="Home">
     <div class="header"></div>
     <div class="main">
-      <div class="compList"></div>
+      <div class="compList">
+        <compList></compList>
+      </div>
       <div class="edit">
         <edit></edit>
       </div>
@@ -13,10 +15,12 @@
 
 <script>
 import edit from '../module/edit/index'
+import compList from '../module/compList/index'
 export default {
   name: 'Home',
   components: {
-    edit
+    edit,
+    compList
   },
   mounted() {
   },
@@ -39,14 +43,12 @@ export default {
   display: flex;
   position: relative;
   .compList{
-    width: 60px;
+    width: 50px;
     height: 100%;
-    background: yellow;
   }
   .edit{
     height: 100%;
     flex: 1;
-    background-color: yellowgreen;
   }
   .attribute{
     width: 400px;

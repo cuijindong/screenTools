@@ -8,5 +8,6 @@
 @import './assets/css/index.scss';
 #app{
   background-color: #424447;
+  font-size: 14px;
 }
 </style>

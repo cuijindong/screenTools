@@ -1,3 +1,3 @@
 export default {
-    test: '11'
+    canvasScale: 1
 }
