@@ -39,7 +39,7 @@ export default {
   display: flex;
   position: relative;
   .compList{
-    width: 100px;
+    width: 60px;
     height: 100%;
     background: yellow;
   }
