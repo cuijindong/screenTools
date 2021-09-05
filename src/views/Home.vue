@@ -45,10 +45,12 @@ export default {
   .compList{
     width: 50px;
     height: 100%;
+    background: $bgBorder;
   }
   .edit{
     height: 100%;
     flex: 1;
+    background: #313131;
   }
   .attribute{
     width: 400px;

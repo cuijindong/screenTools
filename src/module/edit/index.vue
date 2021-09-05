@@ -39,7 +39,6 @@ export default {
 .editContail {
   width: calc(100% - 20px);
   height: calc(100% - 90px);
-  background: #313131;
   margin: 20px 0 0 20px;
 }
 .footer {
