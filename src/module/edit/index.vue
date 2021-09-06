@@ -1,7 +1,5 @@
 <template>
   <div class="page">
-    <!-- 头部 -->
-    <div class="header"></div>
     <!-- 比例尺 -->
     <div class="ruler">
       <ruler></ruler>
@@ -30,15 +28,11 @@ export default {
 .page {
   width: 100%;
   height: 100%;
-}
-.header {
-  height: 40px;
-  width: 100%;
-  background: #656565;
+  overflow: hidden;
 }
 .editContail {
   width: calc(100% - 20px);
-  height: calc(100% - 90px);
+  height: calc(100% - 50px);
   margin: 20px 0 0 20px;
 }
 .footer {

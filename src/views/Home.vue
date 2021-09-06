@@ -43,9 +43,9 @@ export default {
   display: flex;
   position: relative;
   .compList{
-    width: 50px;
+    width: 300px;
     height: 100%;
-    background: $bgBorder;
+    background: #0a0b0d;
   }
   .edit{
     height: 100%;

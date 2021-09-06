@@ -1,41 +1,33 @@
 <template>
   <div class="page">
-    <div class="name">组件库</div>
-    <a-tabs tabPosition="left">
-      <a-tab-pane key="1">
-        <span slot="tab" class="lable">
-          <a-icon type="line-chart" />
-          图表
-        </span>
+    <a-tabs default-active-key="1" class="main" size="small" :tabBarStyle="{color: '#fff'}">
+      <a-tab-pane key="1" tab="组件">
+        <comTabs :dataList="comList"></comTabs>
       </a-tab-pane>
-      <a-tab-pane key="2">
-        <span slot="tab" class="lable">
-          <a-icon type="line-chart" />
-          地图
-        </span>
-      </a-tab-pane>
-      <a-tab-pane key="3">
-        <span slot="tab" class="lable">
-          <a-icon type="line-chart" />
-          信息
-        </span>
+      <a-tab-pane key="2" tab="图层">
+        Content of Tab Pane 2
       </a-tab-pane>
     </a-tabs>
   </div>
 </template>
 
 <script>
-import Tabs from 'ant-design-vue/lib/tabs'
-import TabPane from 'ant-design-vue/lib/tabs'
-import 'ant-design-vue/lib/tabs/style/css'
-import Icon from 'ant-design-vue/lib/icon'
-import 'ant-design-vue/lib/icon/style/css'
+import Tabs from "ant-design-vue/lib/tabs";
+import TabPane from "ant-design-vue/lib/tabs";
+import "ant-design-vue/lib/tabs/style/css";
+import {comList} from '../../dataConfig/index'
 
+import comTabs from './comTabs'
 export default {
   components: {
+    comTabs,
     aTabs: Tabs,
     aTabPane: TabPane.TabPane,
-    aIcon: Icon
+  },
+  data() {
+    return {
+      comList: comList
+    }
   }
 }
 </script>
@@ -46,38 +38,17 @@ export default {
   height: 100%;
   color: #fff;
   cursor: context-menu;
-  &/deep/.ant-tabs{
-    color: #fff;
-    .ant-tabs-nav-container{
-      font-size: 12px;
-    }
-    .ant-tabs-tab{
-      padding: 0;
-      .lable{
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        align-items: center;
-        width: 100%;
-        .anticon{
-          margin: 0;
-          font-size: 24px;
-        }
-      }
-    }
-    .ant-tabs-left-bar{
-      margin-right: 0px;
-      border-right: none;
-      width: 100%;
-      .ant-tabs-ink-bar{
-        left: 0px;
-      }
-    }
-    .ant-tabs-nav {
-      .ant-tabs-tab-active{
-        color: '#0078f9'
-      }
-    }
+  border-right: 1px solid #3e3e3e;
+}
+.main{
+  width: 100%;
+  height: 100%;
+  &/deep/.ant-tabs-content{
+    height: calc(100% - 37px);
+  }
+  &/deep/.ant-tabs-bar{
+    margin-bottom: 0;
+    border-bottom: 1px solid #737373;
   }
 }
 </style>
