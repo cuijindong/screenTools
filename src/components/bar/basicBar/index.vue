@@ -4,12 +4,44 @@
 
 <script>
 import * as echarts from 'echarts'
+let myCharts = null
 export default {
   name: 'basicBar',
+  props: {
+    config: {
+      type: Object,
+      default: () => {}
+    }
+  },
+  data() {
+    return {
+      flag: false
+    }
+  },
+  watch: {
+    // 监听配置
+    config() {
+      if(this.flag) {
+        this.reRander()
+      } else {
+        this.flag = true
+      }
+    }
+  },
   mounted() {
-    this.initCharts()
+    this.init()
   },
   methods: {
+    async init() {
+      // 确保initCharts()时有config
+      await new Promise(r => {
+        if (this.flag) {
+          r()
+        }
+      })
+      this.initCharts()
+    },
+    // 初始化
     initCharts() {
       let option = {
         xAxis: {
@@ -30,9 +62,13 @@ export default {
           },
         ],
       };
-      let myCharts = echarts.init(this.$refs.charts)
+      myCharts = echarts.init(this.$refs.charts)
       myCharts.setOption(option)
     },
+    // 重新渲染
+    reRander() {
+      myCharts.setOption(option)
+    }
   },
 };
 </script>

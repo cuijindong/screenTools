@@ -13,6 +13,7 @@
 
 <script>
 import {computedScale} from '../../../utils/dom'
+import createCom from '../../../components/createCom'
 import {mapState ,mapMutations} from 'vuex'
 export default {
   mounted() {
@@ -46,11 +47,9 @@ export default {
     // 投放
     drop(e) {
       e.preventDefault()
-      console.log(e.dataTransfer.getData('text'))
-      let com = {
-        name: e.dataTransfer.getData('text'),
-        id: this.$utils.uuid()
-      }
+      let name = e.dataTransfer.getData('text')
+      let com = createCom(name)
+      console.log(com)
       this.addCom(com)
     }
   }
