@@ -1,19 +1,32 @@
 <template>
   <div class="page">
-    <div class="deom"></div>
+    <div class="deom" @drop="drop" @dragover="dragOver">
+      <div v-for="com in compConfig.children" :key="com.id">
+        <component
+          :is="com.name"
+          :config="com"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import {computedScale} from '../../../utils/dom'
-import {mapMutations} from 'vuex'
+import {mapState ,mapMutations} from 'vuex'
 export default {
   mounted() {
     this.initScale()
   },
+  computed: {
+    ...mapState({
+      compConfig: 'compConfig'
+    })
+  },
   methods: {
     ...mapMutations({
-      setCanvasScale: 'setCanvasScale'
+      setCanvasScale: 'setCanvasScale',
+      addCom: 'addCom'
     }),
     // 计算缩放
     initScale() {
@@ -22,6 +35,23 @@ export default {
       let scale = computedScale(pDom, cDom)
       cDom.style.transform = `scale(${scale})`
       this.setCanvasScale(scale)
+    },
+    // 投放区移动
+    dragOver(e) {
+      e.preventDefault()
+      // 阻止冒泡
+      e.stopPropagation()
+      e.dataTransfer.dropEffect = 'copy'
+    },
+    // 投放
+    drop(e) {
+      e.preventDefault()
+      console.log(e.dataTransfer.getData('text'))
+      let com = {
+        name: e.dataTransfer.getData('text'),
+        id: this.$utils.uuid()
+      }
+      this.addCom(com)
     }
   }
 }
@@ -40,7 +70,7 @@ export default {
   left: 40px;
   width: 1920px;
   height: 1080px;
-  background: blue;
+  background: #0d2a42;
   transform: scale(1);
   transform-origin: top left;
 }

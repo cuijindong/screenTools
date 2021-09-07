@@ -1,6 +1,7 @@
 export default [
   {
     name: '竖向柱状图',
+    comp: 'basicBar',
     img: require('../../assets/img/bar1.png')
   },
   {

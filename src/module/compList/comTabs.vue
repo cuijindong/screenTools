@@ -15,7 +15,7 @@
         <div v-else class="content">
           <div class="dragCom" v-for="(dragItem, i) in item.content" :key="i">
             <div class="tit">{{dragItem.name}}</div>
-            <img :src="dragItem.img" alt="">
+            <img :src="dragItem.img" alt="" @dragstart="dragStart($event, dragItem.comp)" draggable="true">
           </div>
         </div>
       </a-tab-pane>
@@ -42,6 +42,11 @@ export default {
       default: () => [],
     },
   },
+  methods: {
+    dragStart(e, comName) {
+      e.dataTransfer.setData('text', comName)
+    }
+  }
 };
 </script>
 
