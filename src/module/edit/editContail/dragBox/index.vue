@@ -1,15 +1,15 @@
  <!-- 拖动盒子 -->
 <template>
-  <div class="dragbox" :style="dragboxStyle">
-    <div class="shape">
+  <div class="dragbox" :style="dragboxStyle" @mouseenter="handlerEnter" @mouseleave="handleLeave">
+    <div class="shape" v-show="hover">
       <div class="point pointTop" :style="pointRecoverStyle"></div>
       <div class="point pointRight" :style="pointRecoverStyle"></div>
       <div class="point pointBottom" :style="pointRecoverStyle"></div>
       <div class="point pointLeft" :style="pointRecoverStyle"></div>
       <div class="point pointTopleft" :style="pointRecoverStyle"></div>
-      <div class="point pointTopRight" :style="pointRecoverStyle"></div>
+      <div class="point pointTopright" :style="pointRecoverStyle"></div>
       <div class="point pointBottomleft" :style="pointRecoverStyle"></div>
-      <div class="point pointBottomRight" :style="pointRecoverStyle"></div>
+      <div class="point pointBottomright" :style="pointRecoverStyle"></div>
     </div>
     <slot></slot>
   </div>
@@ -25,6 +25,11 @@ export default {
       default: () => {},
     },
   },
+  data() {
+    return {
+      hover: true
+    }
+  },
   computed: {
     ...mapState({
       canvasScale: 'canvasScale'
@@ -38,10 +43,20 @@ export default {
     },
     pointRecoverStyle() {
       let style = {}
-      style.transform = `translate(-50%, -50%) scale(${1 / this.canvasScale})`
+      style.transform = `scale(${1 / this.canvasScale})`
       return style
     }
   },
+  methods: {
+    handlerEnter(e) {
+      e.stopPropagation();
+      
+      this.hover = true
+    },
+    handleLeave() {
+      this.hover = false
+    }
+  }
 };
 </script>
 
@@ -72,30 +87,43 @@ export default {
     }
     .pointTop {
       cursor: ns-resize;
-      top: 0;
-      left: 50%;
+      top: -10px;
+      left: calc(50% - 10px);
     }
     .pointBottom {
       cursor: ns-resize;
-      bottom: 0;
+      bottom: -10px;
+      left: calc(50% - 10px);
     }
     .pointLeft {
       cursor: ew-resize;
+      left: -10px;
+      top: calc(50% - 10px);
     }
     .pointRight {
       cursor: ew-resize;
+      right: -10px;
+      top: calc(50% - 10px);
     }
     .pointTopleft {
       cursor: nwse-resize;
+      top: -10px;
+      left: -10px;
     }
     .pointTopright {
-      cursor: nwse-resize;
+      cursor: nesw-resize;
+      top: -10px;
+      right: -10px;
     }
     .pointBottomleft {
       cursor: nesw-resize;
+      bottom: -10px;
+      left: -10px;
     }
     .pointBottomright {
-      cursor: nesw-resize;
+      cursor: nwse-resize;
+      bottom: -10px;
+      right: -10px;
     }
   }
 }

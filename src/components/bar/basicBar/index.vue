@@ -72,6 +72,7 @@ export default {
       dom.style.height = pixelize(this.config.attr.h)
       if (this.isEdit) {
         dom.style.position = 'relative'
+        dom.style.pointerEvents = 'none';
       } else {
         dom.style.top = pixelize(this.config.attr.y)
         dom.style.left = pixelize(this.config.attr.x)
