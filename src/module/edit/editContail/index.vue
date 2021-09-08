@@ -1,21 +1,25 @@
 <template>
   <div class="page">
     <div class="deom" @drop="drop" @dragover="dragOver">
-      <div v-for="com in compConfig.children" :key="com.id">
+      <dragBox v-for="com in compConfig.children" :key="com.id" :config="com.attr">
         <component
           :is="com.name"
           :config="com"
         />
-      </div>
+      </dragBox>
     </div>
   </div>
 </template>
 
 <script>
-import {computedScale} from '../../../utils/dom'
-import createCom from '../../../components/createCom'
 import {mapState ,mapMutations} from 'vuex'
+import {computedScale} from '@/utils/dom'
+import createCom from '../../../components/createCom'
+import dragBox from './dragBox/index'
 export default {
+  components: {
+    dragBox
+  },
   mounted() {
     this.initScale()
   },
@@ -49,7 +53,9 @@ export default {
       e.preventDefault()
       let name = e.dataTransfer.getData('text')
       let com = createCom(name)
-      console.log(com)
+      com.id = this.$utils.uuid()
+      com.attr.x = (e.offsetX - com.attr.w / 2)
+      com.attr.y = (e.offsetY - com.attr.h / 2)
       this.addCom(com)
     }
   }

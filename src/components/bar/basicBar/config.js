@@ -1,11 +1,8 @@
-import utils from '../../../utils/index'
-
 export default {
   name: 'basicBar',
-  id: utils.uuid(),
   attr: {
-    w: 200,
-    h: 100,
+    w: 400,
+    h: 300,
     x: 20,
     y: 20
   }

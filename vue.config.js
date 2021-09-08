@@ -1,5 +1,8 @@
 const config = require("./src/config");
-
+const path = require('path')
+function resolve(dir) {
+    return path.join(__dirname, dir)
+}
 module.exports = {
     css: {
         loaderOptions: {
@@ -7,7 +10,11 @@ module.exports = {
                 prependData: `@import "src/assets/css/public.scss";`
             }
         }
-    },   
+    },
+    chainWebpack: config => {
+        config.resolve.alias
+            .set('@', resolve('src'))
+    },
     // 开发环境访问地址、代理等配置
     devServer: {
         host: '0.0.0.0',

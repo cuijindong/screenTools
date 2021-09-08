@@ -1,4 +1,4 @@
-import { pixelize } from "../../../utils/dom";
+import { pixelize } from "@/utils/dom";
 
 /**
  * 创建高分辨率画布

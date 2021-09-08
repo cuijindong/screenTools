@@ -4,6 +4,8 @@
 
 <script>
 import * as echarts from 'echarts'
+import {pixelize} from '@/utils/dom'
+import {mapState} from 'vuex'
 let myCharts = null
 export default {
   name: 'basicBar',
@@ -13,34 +15,29 @@ export default {
       default: () => {}
     }
   },
-  data() {
-    return {
-      flag: false
-    }
+  computed: {
+    ...mapState({
+      isEdit: 'isEdit'
+    })
   },
   watch: {
     // 监听配置
-    config() {
-      if(this.flag) {
-        this.reRander()
-      } else {
-        this.flag = true
-      }
+    config: {
+      handler(newV, oldV) {
+        if (!oldV) {  // 首次
+          this.$nextTick(() => {
+            this.setDomStyle()
+            this.initCharts()
+          })
+        } else {  // 改变配置
+          this.setDomStyle()
+        }
+      },
+      deep: true,
+      immediate: true
     }
   },
-  mounted() {
-    this.init()
-  },
   methods: {
-    async init() {
-      // 确保initCharts()时有config
-      await new Promise(r => {
-        if (this.flag) {
-          r()
-        }
-      })
-      this.initCharts()
-    },
     // 初始化
     initCharts() {
       let option = {
@@ -50,6 +47,9 @@ export default {
         },
         yAxis: {
           type: "value",
+        },
+        tooltip: {
+          show: true
         },
         series: [
           {
@@ -64,6 +64,21 @@ export default {
       };
       myCharts = echarts.init(this.$refs.charts)
       myCharts.setOption(option)
+    },
+    // 设置dom宽高位置
+    setDomStyle() {
+      let dom = this.$refs.charts
+      dom.style.width = pixelize(this.config.attr.w)
+      dom.style.height = pixelize(this.config.attr.h)
+      if (this.isEdit) {
+        dom.style.position = 'relative'
+      } else {
+        dom.style.top = pixelize(this.config.attr.y)
+        dom.style.left = pixelize(this.config.attr.x)
+      }
+      if (myCharts) {
+        myCharts. resize()
+      }
     },
     // 重新渲染
     reRander() {
