@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="deom" @drop="drop" @dragover="dragOver">
-      <dragBox v-for="com in compConfig.children" :key="com.id" :config="com.attr">
+      <dragBox v-for="com in compConfig.children" :key="com.id" :config="com">
         <component
           :is="com.name"
           :config="com"
@@ -31,7 +31,8 @@ export default {
   methods: {
     ...mapMutations({
       setCanvasScale: 'setCanvasScale',
-      addCom: 'addCom'
+      addCom: 'addCom',
+      setAcitveComp: 'setAcitveComp'
     }),
     // 计算缩放
     initScale() {
@@ -57,6 +58,7 @@ export default {
       com.attr.x = (e.offsetX - com.attr.w / 2)
       com.attr.y = (e.offsetY - com.attr.h / 2)
       this.addCom(com)
+      this.setAcitveComp(com)
     }
   }
 }
