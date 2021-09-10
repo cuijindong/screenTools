@@ -24,4 +24,16 @@ function computedScale(pDom, cDom) {
     return scale
   }
 }
-export {pixelize, computedScale} 
+// 元素添加监听
+function on (el, type, fun, useCapture = false) {
+  if (el && type && fun) {
+    el.addEventListener(type, fun, useCapture)
+  }
+}
+// 元素移出监听
+function off (el, type, fun) {
+  if (el, type, fun) {
+    el.removeEventListener(type, fun)
+  }
+}
+export {pixelize, computedScale, on, off} 

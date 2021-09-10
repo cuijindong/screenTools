@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <div class="deom" @drop="drop" @dragover="dragOver">
+    <div class="deom" @drop="drop" @dragover="dragOver" id="editCanvas">
       <dragBox v-for="com in compConfig.children" :key="com.id" :config="com">
         <component
           :is="com.name"
@@ -14,6 +14,7 @@
 <script>
 import {mapState ,mapMutations} from 'vuex'
 import {computedScale} from '@/utils/dom'
+import {getOffsetXY} from '@/utils/edit'
 import createCom from '../../../components/createCom'
 import dragBox from './dragBox/index'
 export default {
@@ -25,7 +26,8 @@ export default {
   },
   computed: {
     ...mapState({
-      compConfig: 'compConfig'
+      compConfig: 'compConfig',
+      canvasScale: 'canvasScale'
     })
   },
   methods: {
@@ -47,16 +49,19 @@ export default {
       e.preventDefault()
       // 阻止冒泡
       e.stopPropagation()
+
       e.dataTransfer.dropEffect = 'copy'
     },
     // 投放
     drop(e) {
       e.preventDefault()
+      e.stopPropagation()
       let name = e.dataTransfer.getData('text')
       let com = createCom(name)
       com.id = this.$utils.uuid()
-      com.attr.x = (e.offsetX - com.attr.w / 2)
-      com.attr.y = (e.offsetY - com.attr.h / 2)
+      const {offsetX, offsetY} = getOffsetXY(e)
+      com.attr.x = Math.round(offsetX - com.attr.w / 2)
+      com.attr.y = Math.round(offsetY - com.attr.h / 2)
       this.addCom(com)
       this.setAcitveComp(com)
     }

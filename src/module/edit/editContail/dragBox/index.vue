@@ -5,7 +5,7 @@
     :style="dragboxStyle"
     @mouseenter="handlerEnter"
     @mouseleave="handleLeave"
-    @mousedown="handleDown"
+    @mousedown.prevent.stop="handleDown"
   >
     <div class="shape" v-show="hover || active">
       <div
@@ -29,6 +29,7 @@
 <script>
 import { pixelize } from "@/utils/dom";
 import { mapState, mapMutations } from "vuex";
+import {handleMove} from './editor'
 export default {
   props: {
     config: {
@@ -69,8 +70,9 @@ export default {
       setAcitveComp: "setAcitveComp",
     }),
     // 鼠标按下，选中组件
-    handleDown() {
+    handleDown(e) {
       this.setAcitveComp(this.config);
+      handleMove(e, this.config)
     },
     // 鼠标移入
     handlerEnter(e) {
@@ -97,7 +99,7 @@ export default {
   width: 100%;
   height: 100%;
   position: absolute;
-  border: 1px solid red;
+  border: 1px solid #70c0ff;
   .point {
     display: flex;
     align-items: center;
@@ -163,6 +165,6 @@ export default {
   z-index: 1;
 }
 .active{
-  background: #25466373;
+  background: #00f3ff17;
 }
 </style>

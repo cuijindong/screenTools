@@ -8,5 +8,9 @@ export default {
     addCom(state, com) {
         com.zIndex = state.compConfig.children.length
         state.compConfig.children.push(com)
+    },
+    updateCom(state, com) {
+        let index = com.zIndex
+        state.compConfig.children[index] = com
     }
 }
