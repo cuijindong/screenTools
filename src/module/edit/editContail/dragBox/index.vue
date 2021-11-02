@@ -99,7 +99,7 @@ export default {
   width: 100%;
   height: 100%;
   position: absolute;
-  border: 1px solid #70c0ff;
+  border: 2px solid #70c0ff;
   .point {
     display: flex;
     align-items: center;
