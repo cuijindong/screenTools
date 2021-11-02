@@ -7,21 +7,49 @@
     @mouseleave="handleLeave"
     @mousedown.prevent.stop="handleDown"
   >
-    <div class="shape" v-show="hover || active">
+    <div class="shape" :style="shapeStyle">
       <div
         class="point pointTop"
         :style="pointRecoverStyle"
-        @mousedown="handlePointDown($event)"
+        @mousedown.prevent.stop="handlePointDown($event, 'top')"
       ></div>
-      <div class="point pointRight" :style="pointRecoverStyle"></div>
-      <div class="point pointBottom" :style="pointRecoverStyle"></div>
-      <div class="point pointLeft" :style="pointRecoverStyle"></div>
-      <div class="point pointTopleft" :style="pointRecoverStyle"></div>
-      <div class="point pointTopright" :style="pointRecoverStyle"></div>
-      <div class="point pointBottomleft" :style="pointRecoverStyle"></div>
-      <div class="point pointBottomright" :style="pointRecoverStyle"></div>
+      <div
+        class="point pointRight"
+        :style="pointRecoverStyle"
+        @mousedown.prevent.stop="handlePointDown($event, 'right')"
+      ></div>
+      <div
+        class="point pointBottom"
+        :style="pointRecoverStyle"
+        @mousedown.prevent.stop="handlePointDown($event, 'bottom')"
+      ></div>
+      <div
+        class="point pointLeft"
+        :style="pointRecoverStyle"
+        @mousedown.prevent.stop="handlePointDown($event, 'left')"
+      ></div>
+      <div
+        class="point pointTopleft"
+        :style="pointRecoverStyle"
+        @mousedown.prevent.stop="handlePointDown($event, 'topleft')"
+      ></div>
+      <div
+        class="point pointTopright"
+        :style="pointRecoverStyle"
+        @mousedown.prevent.stop="handlePointDown($event, 'topright')"
+      ></div>
+      <div
+        class="point pointBottomleft"
+        :style="pointRecoverStyle"
+        @mousedown.prevent.stop="handlePointDown($event, 'bottomleft')"
+      ></div>
+      <div
+        class="point pointBottomright"
+        :style="pointRecoverStyle"
+        @mousedown.prevent.stop="handlePointDown($event, 'bottomright')"
+      ></div>
     </div>
-    <div class="activeBg" :class="{active: active}"></div>
+    <div class="activeBg" :class="{ active: active }"></div>
     <slot></slot>
   </div>
 </template>
@@ -29,7 +57,7 @@
 <script>
 import { pixelize } from "@/utils/dom";
 import { mapState, mapMutations } from "vuex";
-import {handleMove} from './editor'
+import { handleMove, handleChangeSize } from "./editor";
 export default {
   props: {
     config: {
@@ -64,6 +92,13 @@ export default {
     active() {
       return this.acitveComp && this.config.id === this.acitveComp.id;
     },
+    shapeStyle() {
+      let style = 'opacity: 0;'
+      if (this.active || this.hover) {
+        style = 'opacity: 1;'
+      }
+      return style
+    }
   },
   methods: {
     ...mapMutations({
@@ -72,7 +107,7 @@ export default {
     // 鼠标按下，选中组件
     handleDown(e) {
       this.setAcitveComp(this.config);
-      handleMove(e, this.config)
+      handleMove(e, this.config);
     },
     // 鼠标移入
     handlerEnter(e) {
@@ -83,8 +118,9 @@ export default {
     handleLeave() {
       this.hover = false;
     },
-    handlePointDown(e) {
-      console.log(e);
+    handlePointDown(e, flag) {
+      this.setAcitveComp(this.config);
+      handleChangeSize(e, this.config, flag);
     },
   },
 };
@@ -100,6 +136,7 @@ export default {
   height: 100%;
   position: absolute;
   border: 2px solid #70c0ff;
+  transition: all .3s;
   .point {
     display: flex;
     align-items: center;
@@ -158,13 +195,14 @@ export default {
     right: -10px;
   }
 }
-.activeBg{
+.activeBg {
   width: 100%;
   height: 100%;
   position: absolute;
   z-index: 1;
+  transition: all .3s;
 }
-.active{
+.active {
   background: #00f3ff17;
 }
 </style>

@@ -6,13 +6,17 @@
 import * as echarts from 'echarts'
 import {pixelize} from '@/utils/dom'
 import {mapState} from 'vuex'
-let myCharts = null
 export default {
   name: 'basicBar',
   props: {
     config: {
       type: Object,
       default: () => {}
+    }
+  },
+  data() {
+    return {
+      myCharts: null
     }
   },
   computed: {
@@ -62,8 +66,8 @@ export default {
           },
         ],
       };
-      myCharts = echarts.init(this.$refs.charts)
-      myCharts.setOption(option)
+      this.myCharts = echarts.init(this.$refs.charts)
+      this.myCharts.setOption(option)
     },
     // 设置dom宽高位置
     setDomStyle() {
@@ -77,13 +81,13 @@ export default {
         dom.style.top = pixelize(this.config.attr.y)
         dom.style.left = pixelize(this.config.attr.x)
       }
-      if (myCharts) {
-        myCharts. resize()
+      if (this.myCharts) {
+        this.myCharts.resize()
       }
     },
     // 重新渲染
     reRander() {
-      myCharts.setOption(option)
+      this.myCharts.setOption(option)
     }
   },
 };
