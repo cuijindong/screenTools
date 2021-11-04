@@ -1,6 +1,6 @@
 export default {
   name: 'basicBar',
-  layerName: '竖向柱状图',
+  layerName: '竖向柱状图test',
   attr: {
     w: 400,
     h: 300,
