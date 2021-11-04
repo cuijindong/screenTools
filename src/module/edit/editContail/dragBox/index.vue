@@ -6,6 +6,7 @@
     @mouseenter="handlerEnter"
     @mouseleave="handleLeave"
     @mousedown.prevent.stop="handleDown"
+    @contextmenu.prevent="openMenu"
   >
     <div class="shape" :style="shapeStyle">
       <div
@@ -68,6 +69,11 @@ export default {
   data() {
     return {
       hover: true,
+      showMenu: false,
+      menuPosition: {
+        x: 0,
+        y: 0
+      }
     };
   },
   computed: {
@@ -106,8 +112,10 @@ export default {
     }),
     // 鼠标按下，选中组件
     handleDown(e) {
-      this.setAcitveComp(this.config);
-      handleMove(e, this.config);
+      if (e.button === 0) {
+        this.setAcitveComp(this.config);
+        handleMove(e, this.config);
+      }
     },
     // 鼠标移入
     handlerEnter(e) {
@@ -118,10 +126,16 @@ export default {
     handleLeave() {
       this.hover = false;
     },
+    // 组件大小缩放
     handlePointDown(e, flag) {
       this.setAcitveComp(this.config);
       handleChangeSize(e, this.config, flag);
     },
+    // 打开菜单
+    openMenu(e) {
+      e.preventDefault()
+      this.$root.$emit('openMenu', e, this.config)
+    }
   },
 };
 </script>

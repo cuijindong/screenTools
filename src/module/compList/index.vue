@@ -15,7 +15,7 @@
 import Tabs from "ant-design-vue/lib/tabs";
 import TabPane from "ant-design-vue/lib/tabs";
 import "ant-design-vue/lib/tabs/style/css";
-import {comList} from '../../dataConfig/index'
+import {comList} from '@/dataConfig/index'
 
 import comTabs from './comTabs'
 export default {

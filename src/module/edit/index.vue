@@ -10,16 +10,20 @@
     </div>
     <!-- 底部 -->
     <div class="footer"></div>
+    <!-- 菜单 -->
+    <editMenu></editMenu>
   </div>
 </template>
 
 <script>
 import ruler from "./ruler/index.vue";
 import editContail from './editContail/index.vue'
+import editMenu from './editMenu/index'
 export default {
   components: {
     ruler,
-    editContail
+    editContail,
+    editMenu
   },
 };
 </script>
