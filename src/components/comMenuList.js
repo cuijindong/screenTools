@@ -1,12 +1,23 @@
-import charts from './charts/index'
-import map from './map'
-import info from './info'
+// 组件区 数据
+import createCom from './createCom'
+const chart = [
+  {
+    name: '柱状图',
+    type: 'bar',
+    content: [
+      createCom('basicBar')
+    ]
+  }
+]
+const map = []
+
+const info = []
 const comList = [
   {
     name: '图表',
     type: 'charts',
     icon: 'bar-chart',
-    child: charts
+    child: chart
   },
   {
     name: '地图',
@@ -22,4 +33,4 @@ const comList = [
   },
 ]
 
-export {comList}
+export default comList

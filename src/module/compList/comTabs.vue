@@ -14,8 +14,8 @@
         ></comTabs>
         <div v-else class="content">
           <div class="dragCom" v-for="(dragItem, i) in item.content" :key="i">
-            <div class="tit">{{dragItem.name}}</div>
-            <img :src="dragItem.img" alt="" @dragstart="dragStart($event, dragItem.comp)" draggable="true">
+            <div class="tit">{{dragItem.layerName}}</div>
+            <img :src="dragItem.layerImg" alt="" @dragstart="dragStart($event, dragItem.name)" draggable="true">
           </div>
         </div>
       </a-tab-pane>
@@ -73,6 +73,7 @@ export default {
   img{
     height: calc(100% - 22px);
     width: 100%;
+    -webkit-user-drag: element !important;
   }
 }
 /deep/.ant-tabs {

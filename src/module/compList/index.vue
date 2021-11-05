@@ -5,7 +5,7 @@
         <comTabs :dataList="comList"></comTabs>
       </a-tab-pane>
       <a-tab-pane key="2" tab="图层">
-        Content of Tab Pane 2
+        <comLayers></comLayers>
       </a-tab-pane>
     </a-tabs>
   </div>
@@ -15,12 +15,14 @@
 import Tabs from "ant-design-vue/lib/tabs";
 import TabPane from "ant-design-vue/lib/tabs";
 import "ant-design-vue/lib/tabs/style/css";
-import {comList} from '@/dataConfig/index'
+import comList from '@/components/comMenuList'
+import comLayers from './comLayers'
 
 import comTabs from './comTabs'
 export default {
   components: {
     comTabs,
+    comLayers,
     aTabs: Tabs,
     aTabPane: TabPane.TabPane,
   },
